@@ -1,0 +1,624 @@
+<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>הממלכה של שירן</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#7b4bd1">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="הממלכה של שירן">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" type="image/png" href="icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Noto+Sans+Hebrew:wght@500;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#f8f4ff; --card:#ffffff; --ink:#24193f; --muted:#5a4f72; --line:#ddd3ef; --shadow:#cdc0e6;
+  --blue:#2d6cdf; --blue-t:#e3ecfd;
+  --orange:#c2531a; --orange-t:#fdeadf;
+  --green:#1b8a52; --green-t:#dcf3e6;
+  --purple:#7b4bd1; --purple-t:#efe6fd;
+  --pink:#b8336a; --pink-t:#fbe4ee;
+  --teal:#0f7b8a; --teal-t:#dcf2f4;
+  --star:#ffc93c; --star-edge:#b8860b;
+  --on-accent:#ffffff;
+  --display:'Fredoka','Noto Sans Hebrew',system-ui,sans-serif;
+  --hebrew:'Noto Sans Hebrew','Arial Hebrew',system-ui,sans-serif;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16112b; --card:#221a40; --ink:#f4f0ff; --muted:#c1b6dd; --line:#3a2f63; --shadow:#0c0820;
+    --blue:#86b3ff; --blue-t:#1f2f5e; --orange:#ff9d66; --orange-t:#43261a;
+    --green:#62d69d; --green-t:#173d2b; --purple:#c2a6ff; --purple-t:#30245a;
+    --pink:#ff8dbb; --pink-t:#46203a; --teal:#5fd0de; --teal-t:#143c44;
+    --star:#ffd257; --star-edge:#c99a1e; --on-accent:#140e28; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16112b; --card:#221a40; --ink:#f4f0ff; --muted:#c1b6dd; --line:#3a2f63; --shadow:#0c0820;
+  --blue:#86b3ff; --blue-t:#1f2f5e; --orange:#ff9d66; --orange-t:#43261a;
+  --green:#62d69d; --green-t:#173d2b; --purple:#c2a6ff; --purple-t:#30245a;
+  --pink:#ff8dbb; --pink-t:#46203a; --teal:#5fd0de; --teal-t:#143c44;
+  --star:#ffd257; --star-edge:#c99a1e; --on-accent:#140e28; color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--display);-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+button{font:inherit;color:inherit;border:0;background:none;cursor:pointer;touch-action:manipulation}
+button:focus-visible{outline:3px solid var(--purple);outline-offset:3px}
+.heb{font-family:var(--hebrew)}
+.app{max-width:560px;margin:0 auto;min-height:100%;padding-block:16px 28px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:16px}
+.t-blue{--c:var(--blue);--ct:var(--blue-t)}
+.t-orange{--c:var(--orange);--ct:var(--orange-t)}
+.t-green{--c:var(--green);--ct:var(--green-t)}
+.t-purple{--c:var(--purple);--ct:var(--purple-t)}
+.t-pink{--c:var(--pink);--ct:var(--pink-t)}
+.t-teal{--c:var(--teal);--ct:var(--teal-t)}
+
+/* home */
+.hello{display:flex;align-items:center;justify-content:space-between;gap:12px;background:var(--purple-t);border-radius:28px;padding:18px 20px}
+.hello h1{margin:0;font-size:36px;line-height:1.2;font-weight:800}
+.hello p{margin:4px 0 0;font-size:20px;color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;background:var(--card);border:2px solid var(--line);border-radius:999px;padding:6px 14px 6px 12px;font-size:22px;font-weight:600;font-variant-numeric:tabular-nums;flex-shrink:0}
+.pill svg{width:26px;height:26px}
+.tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tile{background:var(--ct);border-radius:26px;min-height:172px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;text-align:center;box-shadow:0 5px 0 var(--shadow);transition:transform .1s}
+.tile:active{transform:translateY(4px);box-shadow:0 1px 0 var(--shadow)}
+.tile .glyph{font-size:50px;line-height:1.2;font-weight:800;color:var(--c);min-height:62px;display:flex;align-items:center}
+.tile .tt{font-size:22px;font-weight:800}
+.tile .td{font-size:14px;color:var(--muted);line-height:1.35}
+.sec{margin:6px 4px -4px;font-size:16px;font-weight:700;color:var(--muted)}
+.foot{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ghost{border:2px dashed var(--line);border-radius:16px;padding:12px 16px;font-size:16px;color:var(--muted);min-height:48px}
+.note{background:var(--card);border:2px dashed var(--line);border-radius:18px;padding:12px 16px;font-size:15px;line-height:1.45;color:var(--muted);margin:0}
+
+/* shared */
+.round{width:52px;height:52px;border-radius:26px;background:var(--card);border:2px solid var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.round svg{width:26px;height:26px;fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+.bar{display:flex;align-items:center;gap:12px}
+.bar .bt{flex:1;margin:0;text-align:center;font-size:26px;font-weight:800}
+.dots{flex:1;display:flex;justify-content:center;gap:7px;flex-wrap:wrap}
+.dot{width:14px;height:14px;border-radius:7px;background:var(--line)}
+.dot.done{background:var(--c)}
+.dot.now{background:var(--card);box-shadow:0 0 0 3px var(--c) inset}
+
+/* game */
+.prompt{position:relative;background:var(--ct);border-radius:30px;padding:18px 16px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:210px}
+.prompt .say{position:absolute;top:12px;left:12px}
+.big{font-size:clamp(110px,34vw,150px);line-height:1.2;font-weight:800}
+.pic{font-size:104px;line-height:1.15}
+.flashword{font-size:clamp(52px,15vw,72px);font-weight:800;line-height:1.6}
+.hidden-q{font-size:96px;font-weight:800;color:var(--c);line-height:1.2}
+.q{margin:0;text-align:center;font-size:24px;font-weight:800;line-height:1.5}
+.opts{display:grid;gap:12px}
+.c1{grid-template-columns:1fr}
+.c2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.c3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.opt{background:var(--card);border:3px solid var(--line);border-radius:24px;min-height:100px;padding:8px 10px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;box-shadow:0 5px 0 var(--shadow);transition:transform .1s,background .15s}
+.opt:active{transform:translateY(4px);box-shadow:0 1px 0 var(--shadow)}
+.opt.wordbig{font-size:44px;font-weight:800;min-height:96px;line-height:1.5}
+.opt.wordmid{font-size:32px;font-weight:800;min-height:96px;line-height:1.5}
+.opt.sylopt{font-size:64px;font-weight:800;line-height:1.3;min-height:116px}
+.opt.txt{font-size:24px;font-weight:700;min-height:70px;line-height:1.6;padding:10px 16px}
+.opt.picopt{font-size:40px;letter-spacing:-2px;flex-direction:row;flex-wrap:wrap;min-height:110px}
+.opt.ok{border-color:var(--green);background:var(--green-t);box-shadow:0 5px 0 var(--green)}
+.opt.no{opacity:.35;animation:shake .4s}
+.sentence{margin:0;font-size:32px;line-height:1.9;font-weight:800;text-align:center;padding:10px 44px 0}
+.story-t{margin:0;font-size:24px;font-weight:800;color:var(--c);text-align:center;padding:4px 48px 0}
+.story{margin:0;font-size:23px;line-height:2.05;font-weight:600;text-align:right;align-self:stretch}
+.sq{margin:0;text-align:center;font-size:26px;font-weight:800;line-height:1.6;background:var(--card);border:3px solid var(--c);border-radius:22px;padding:10px 14px}
+.qn{font-size:16px;color:var(--muted);font-weight:700;text-align:center;margin:0}
+.tip{margin:0;text-align:center;font-size:17px;color:var(--muted);line-height:1.6}
+.fb{margin:0;min-height:40px;text-align:center;font-size:28px;font-weight:800;color:var(--green)}
+.fb.try{color:var(--orange)}
+.again{align-self:center;min-height:52px;border-radius:18px;border:2px solid var(--line);background:var(--card);padding:8px 18px;font-size:19px;font-weight:700;box-shadow:0 3px 0 var(--shadow)}
+.wait{min-height:120px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--muted);font-weight:700;text-align:center}
+
+/* tower */
+.tower{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 40px 0;width:100%}
+.tline{margin:0;font-size:26px;line-height:1.8;font-weight:700;color:var(--muted);text-align:center;opacity:.75}
+.tline.now{font-size:34px;color:var(--ink);opacity:1}
+.timer{font-size:60px;font-weight:800;font-variant-numeric:tabular-nums;color:var(--c);line-height:1.2}
+.btn{flex:1;min-width:140px;min-height:62px;border-radius:20px;font-size:23px;font-weight:800;background:var(--card);border:3px solid var(--line);box-shadow:0 5px 0 var(--shadow)}
+.btn:active{transform:translateY(4px);box-shadow:0 1px 0 var(--shadow)}
+.btn.primary{background:var(--purple);color:var(--on-accent);border-color:var(--purple)}
+.btn.go{background:var(--green);color:var(--on-accent);border-color:var(--green)}
+.big-msg{margin:0;font-size:30px;font-weight:800;text-align:center;line-height:1.5}
+.record{color:var(--orange)}
+
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+@keyframes pop{0%{transform:scale(.6)}70%{transform:scale(1.15)}100%{transform:scale(1)}}
+.ok{animation:pop .35s}
+
+/* end */
+.end{display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center;padding-top:24px}
+.end h1{margin:0;font-size:38px;font-weight:800;line-height:1.3}
+.stars{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;max-width:340px}
+.stars svg{width:62px;height:62px}
+.score{font-size:24px;font-weight:700;color:var(--muted);margin:0}
+.row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%}
+.confetti{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.confetti span{position:absolute;top:-24px;width:11px;height:16px;border-radius:3px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg)}}
+
+/* settings */
+.panel{background:var(--card);border:2px solid var(--line);border-radius:24px;padding:18px 16px;display:flex;flex-direction:column;gap:12px}
+.panel h3{margin:0;font-size:22px}
+.panel p{margin:0;font-size:16px;line-height:1.5;color:var(--muted)}
+.seg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;background:var(--bg);border:2px solid var(--line);border-radius:22px;padding:6px}
+.seg button{min-height:54px;border-radius:16px;font-size:19px;font-weight:700}
+.seg button[aria-pressed="true"]{background:var(--purple);color:var(--on-accent)}
+.small{flex:1;min-height:50px;border-radius:16px;border:2px solid var(--line);font-size:17px;font-weight:600}
+.prog{width:100%;border-collapse:collapse;font-size:16px}
+.prog td{padding:8px 4px;border-bottom:1px solid var(--line)}
+.prog td:last-child{text-align:left;font-variant-numeric:tabular-nums;color:var(--muted)}
+.meter{height:10px;border-radius:5px;background:var(--line);overflow:hidden;margin-top:4px}
+.meter i{display:block;height:100%;background:var(--purple)}
+.steps{margin:0;padding-inline-start:22px;display:flex;flex-direction:column;gap:6px;font-size:16px;line-height:1.5;color:var(--muted)}
+.steps b{color:var(--ink)}
+
+/* exit confirm */
+.modal{position:fixed;inset:0;z-index:20;background:rgba(16,10,34,.55);display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.sheet{width:100%;max-width:400px;background:var(--card);border-radius:30px;padding:24px 18px 20px;display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;box-shadow:0 12px 0 var(--shadow);animation:pop .3s}
+.sheet .face{font-size:64px;line-height:1}
+.sheet h2{margin:0;font-size:30px;font-weight:800}
+.sheet p{margin:0;font-size:18px;color:var(--muted)}
+.sheet .btn{width:100%;flex:none}
+
+@media (prefers-reduced-motion: reduce){
+  .sheet,.opt.no,.ok{animation:none}
+  .confetti{display:none}
+  .tile,.opt{transition:none}
+}
+</style>
+</head><body>
+<div class="app" id="app" dir="rtl"></div>
+
+<script>
+(function(){
+/* ---------- content ---------- */
+/* magic word: picture + the right word + two "bewitched" versions with wrong niqqud */
+var WORDS=[
+ {w:'חָתוּל',pic:'🐱',bad:['חָתוֹל','חִתוּל']},
+ {w:'כֶּלֶב',pic:'🐶',bad:['כִּלֹב','כֻּלָב']},
+ {w:'אַרְיֵה',pic:'🦁',bad:['אִרְיָה','אֻרְיֶה']},
+ {w:'סוּס',pic:'🐴',bad:['סוֹס','סִיס']},
+ {w:'אַרְנָב',pic:'🐰',bad:['אִרְנֹב','אֻרְנֵב']},
+ {w:'פַּרְפַּר',pic:'🦋',bad:['פִּרְפֹּר','פֻּרְפֵּר']},
+ {w:'צְפַרְדֵּעַ',pic:'🐸',bad:['צְפִרְדּוֹעַ','צְפֻרְדָּעַ']},
+ {w:'כֶּתֶר',pic:'👑',bad:['כָּתֹר','כִּתֻר']},
+ {w:'אַרְמוֹן',pic:'🏰',bad:['אַרְמִין','אֻרְמָן']},
+ {w:'דְּרָקוֹן',pic:'🐉',bad:['דְּרָקוּן','דְּרֶקִן']},
+ {w:'כּוֹכָב',pic:'⭐',bad:['כּוּכָב','כּוֹכִב']},
+ {w:'פִּיל',pic:'🐘',bad:['פּוּל','פֵּל']},
+ {w:'דֹּב',pic:'🐻',bad:['דֻּב','דִּב']},
+ {w:'דָּג',pic:'🐟',bad:['דֵּג','דּוּג']},
+ {w:'צִפּוֹר',pic:'🐦',bad:['צֻפּוּר','צֶפֹּר']},
+ {w:'קוֹף',pic:'🐒',bad:['קוּף','קִיף']},
+ {w:'פֶּרַח',pic:'🌸',bad:['פֻּרַח','פֶּרִח']},
+ {w:'עוּגָה',pic:'🍰',bad:['עוֹגֶה','עִגָּה']},
+ {w:'בָּלוֹן',pic:'🎈',bad:['בָּלוּן','בִּלֶן']},
+ {w:'צָב',pic:'🐢',bad:['צִב','צוּב']},
+ {w:'שַׁרְבִיט',pic:'🪄',bad:['שֻׁרְבֵט','שַׁרְבוֹט']},
+ {w:'דְּבוֹרָה',pic:'🐝',bad:['דְּבוּרָה','דְּבִירָה']},
+ {w:'שׁוּעָל',pic:'🦊',bad:['שׁוֹעָל','שִׁעֻל']},
+ {w:'עַכְבָּר',pic:'🐭',bad:['עִכְבֹּר','עֻכְבֵּר']},
+ {w:'יַנְשׁוּף',pic:'🦉',bad:['יִנְשׁוֹף','יֻנְשִׁיף']},
+ {w:'גְּלִידָה',pic:'🍦',bad:['גְּלוּדָה','גְּלֵדָה']}
+];
+/* vowel families: each family has two ways to write the same sound */
+var FAM=[
+ {k:'a',f:[function(l){return l+'ַ';},function(l){return l+'ָ';}],tip:'פַּתָּח וְקָמָץ אוֹמְרִים אַ'},
+ {k:'e',f:[function(l){return l+'ֶ';},function(l){return l+'ֵ';}],tip:'סֶגּוֹל וְצֵירֵה אוֹמְרִים אֶ'},
+ {k:'i',f:[function(l){return l+'ִ';},function(l){return l+'ִי';}],tip:'חִירִיק אוֹמֵר אִ'},
+ {k:'o',f:[function(l){return l+'ֹ';},function(l){return l+'וֹ';}],tip:'חוֹלָם אוֹמֵר אוֹ'},
+ {k:'u',f:[function(l){return l+'ֻ';},function(l){return l+'וּ';}],tip:'קֻבּוּץ וְשׁוּרוּק אוֹמְרִים אוּ'}
+];
+var LET=['בּ','ג','ד','ל','מ','נ','ס','ר','תּ','ק','פּ','כּ','שׁ','ז','ט'];
+/* reading tower: sentences that grow word by word */
+var TOWER=[
+ ['הַנְּסִיכָה','רָאֲתָה','דְּרָקוֹן','קָטָן','בַּגִּנָּה.'],
+ ['הַפֵיָה','הַקְּטַנָּה','עָפָה','מֵעַל','הָאַרְמוֹן.'],
+ ['הֶחָתוּל','שֶׁל','שִׁירָן','אוֹהֵב','לִישֹׁן','בַּשֶּׁמֶשׁ.'],
+ ['הַחַד־קֶרֶן','רָץ','מַהֵר','אֶל','הַיַּעַר.'],
+ ['הָאַרְנָב','מָצָא','גֶּזֶר','גָּדוֹל','וְשָׂמַח.'],
+ ['בַּלַּיְלָה','הַיָּרֵחַ','מֵאִיר','עַל','הָאַרְמוֹן.'],
+ ['הַכֶּלֶב','הֶחָמוּד','קָפַץ','לְתוֹךְ','הַשְּׁלוּלִית.'],
+ ['הַקּוֹסֵם','הָפַךְ','אֶת','הַצְּפַרְדֵּעַ','לְנָסִיךְ.'],
+ ['הַפַּרְפַּר','נָח','עַל','פֶּרַח','וָרֹד.'],
+ ['שִׁירָן','וְהַפֵיָה','אָפוּ','עוּגָה','מְתוּקָה.']
+];
+/* sentence + picture: [sentence, right picture, wrong, wrong] */
+var SENT=[
+ ['הַנְּסִיכָה רוֹכֶבֶת עַל סוּס.','👸🐴','👸🐢','🤴🐴'],
+ ['הַדְּרָקוֹן יָשֵׁן לְיַד הָאַרְמוֹן.','🐉😴🏰','🐉🔥🏰','🦖😴🏰'],
+ ['הַפֵיָה נָתְנָה לַיַּלְדָּה פֶּרַח.','🧚🌸👧','🧚🎈👧','🧚🌸👦'],
+ ['הֶחָתוּל שׁוֹתֶה חָלָב.','🐱🥛','🐶🥛','🐱🍰'],
+ ['הַכֶּלֶב רָץ אַחֲרֵי הַכַּדּוּר.','🐕⚽','🐕🦴','🐈⚽'],
+ ['הַקּוֹסֵם הוֹצִיא אַרְנָב מֵהַכּוֹבַע.','🎩🐰','🎩🕊️','👑🐰'],
+ ['הַנָּסִיךְ שָׂם כֶּתֶר עַל הָרֹאשׁ.','🤴👑','🤴🎩','👸👑'],
+ ['הַפִּיל מַתִּיז מַיִם.','🐘💦','🐘🍎','🦒💦'],
+ ['הַנְּסִיכָה אוֹכֶלֶת עוּגָה.','👸🍰','👸🍎','🧚🍰'],
+ ['הַצִּפּוֹר יוֹשֶׁבֶת עַל הָעֵץ.','🐦🌳','🐦🏠','🦋🌳'],
+ ['בַּלַּיְלָה יֵשׁ יָרֵחַ וְכוֹכָבִים.','🌙⭐','☀️⭐','🌙☁️'],
+ ['הַקּוֹף אוֹכֵל בַּנָּנָה.','🐒🍌','🐒🍎','🐘🍌'],
+ ['הַחַד־קֶרֶן אוֹכֵל גֶּזֶר.','🦄🥕','🦄🍰','🐴🥕'],
+ ['הַדְּבוֹרָה עָפָה אֶל הַפֶּרַח.','🐝🌸','🐝🍯','🦋🌸'],
+ ['הַדֹּב אוֹכֵל דְּבַשׁ.','🐻🍯','🐻🐟','🐼🍯'],
+ ['הַקּוֹסֶמֶת מְנַפְנֶפֶת בַּשַּׁרְבִיט.','🧙‍♀️🪄','🧙‍♀️🧹','👸🎈']
+];
+/* stories: title, text, questions [question, right, wrong, wrong] */
+var STORIES=[
+ {t:'שִׁירָן וְהַפֵיָה',x:'בַּבֹּקֶר שִׁירָן מָצְאָה פֵיָה קְטַנָּה בַּגִּנָּה. לַפֵיָה הָיְתָה כָּנָף שְׁבוּרָה. שִׁירָן שָׂמָה אוֹתָהּ בְּקֻפְסָה רַכָּה וְנָתְנָה לָהּ מַיִם. בָּעֶרֶב הַפֵיָה הִרְגִּישָׁה טוֹב וְעָפָה הַבַּיְתָה.',
+  qs:[['אֵיפֹה שִׁירָן מָצְאָה אֶת הַפֵיָה?','בַּגִּנָּה','בַּבַּיִת','בְּבֵית הַסֵּפֶר'],
+      ['מָה קָרָה לַפֵיָה?','הַכָּנָף שֶׁלָּהּ נִשְׁבְּרָה','הִיא הָיְתָה רְעֵבָה','הִיא אִבְּדָה אֶת הַשַּׁרְבִיט'],
+      ['מָתַי הַפֵיָה עָפָה הַבַּיְתָה?','בָּעֶרֶב','בַּבֹּקֶר','בַּצָּהֳרַיִם']]},
+ {t:'הַדְּרָקוֹן שֶׁפָּחַד',x:'בְּאַרְמוֹן גָּדוֹל גָּר דְּרָקוֹן יָרֹק. כֻּלָּם חָשְׁבוּ שֶׁהוּא אַמִּיץ, אֲבָל הוּא פָּחַד מֵהַחֹשֶׁךְ. הַנְּסִיכָה נָתְנָה לוֹ פָּנָס קָטָן. מֵאָז הַדְּרָקוֹן יָשֵׁן בְּשֶׁקֶט כָּל לַיְלָה.',
+  qs:[['מִמָּה פָּחַד הַדְּרָקוֹן?','מֵהַחֹשֶׁךְ','מֵהַנְּסִיכָה','מִכְּלָבִים'],
+      ['מָה הַנְּסִיכָה נָתְנָה לַדְּרָקוֹן?','פָּנָס','עוּגָה','כֶּתֶר'],
+      ['אֵיזֶה צֶבַע הָיָה הַדְּרָקוֹן?','יָרֹק','אָדֹם','כָּחֹל']]},
+ {t:'הָאַרְנָב וְהַגֶּזֶר',x:'אַרְנָב קָטָן חִפֵּשׂ אֹכֶל בַּשָּׂדֶה. הוּא מָצָא גֶּזֶר עֲנָקִי, אֲבָל לֹא הִצְלִיחַ לְהָרִים אוֹתוֹ. הוּא קָרָא לַחֲבֵרִים שֶׁלּוֹ, וְכֻלָּם מָשְׁכוּ יַחַד. בַּסּוֹף הֵם אָכְלוּ אֶת הַגֶּזֶר בְּיַחַד.',
+  qs:[['מָה מָצָא הָאַרְנָב?','גֶּזֶר עֲנָקִי','תַּפּוּחַ אָדֹם','עוּגָה גְּדוֹלָה'],
+      ['לָמָּה הָאַרְנָב קָרָא לַחֲבֵרִים?','כִּי הַגֶּזֶר הָיָה כָּבֵד','כִּי הוּא פָּחַד','כִּי הוּא רָצָה לְשַׂחֵק'],
+      ['מָה הֵם עָשׂוּ בַּסּוֹף?','אָכְלוּ יַחַד','הָלְכוּ לִישֹׁן','שָׁרוּ שִׁיר']]},
+ {t:'הַחַד־קֶרֶן וְהַקֶּשֶׁת',x:'אַחֲרֵי הַגֶּשֶׁם הוֹפִיעָה קֶשֶׁת בַּשָּׁמַיִם. חַד־קֶרֶן לָבָן רָצָה לִגְעֹת בָּהּ. הוּא רָץ וְרָץ עַד שֶׁהִגִּיעַ לְרֹאשׁ הָהָר. מִשָּׁם הַקֶּשֶׁת נִרְאֲתָה קְרוֹבָה מְאוֹד.',
+  qs:[['מָתַי הוֹפִיעָה הַקֶּשֶׁת?','אַחֲרֵי הַגֶּשֶׁם','בַּלַּיְלָה','בַּבֹּקֶר הַמֻּקְדָּם'],
+      ['מָה רָצָה הַחַד־קֶרֶן?','לִגְעֹת בַּקֶּשֶׁת','לֶאֱכֹל גֶּזֶר','לִישֹׁן'],
+      ['לְאָן הִגִּיעַ הַחַד־קֶרֶן?','לְרֹאשׁ הָהָר','לַיָּם','לָאַרְמוֹן']]},
+ {t:'הֶחָתוּל שֶׁל הַמַּלְכָּה',x:'לַמַּלְכָּה הָיָה חָתוּל שָׁמֵן בְּשֵׁם מִיצִי. יוֹם אֶחָד מִיצִי נֶעֱלַם. כֻּלָּם חִפְּשׂוּ אוֹתוֹ בְּכָל הָאַרְמוֹן. בַּסּוֹף מָצְאוּ אוֹתוֹ יָשֵׁן בְּתוֹךְ הַכֶּתֶר שֶׁל הַמַּלְכָּה!',
+  qs:[['מָה שֵׁם הֶחָתוּל?','מִיצִי','שׁוֹקוֹ','לוּלוּ'],
+      ['אֵיפֹה מָצְאוּ אֶת הֶחָתוּל?','בְּתוֹךְ הַכֶּתֶר','מִתַּחַת לַמִּטָּה','בַּגִּנָּה'],
+      ['מָה עָשָׂה הֶחָתוּל כְּשֶׁמָּצְאוּ אוֹתוֹ?','יָשַׁן','אָכַל','שִׂחֵק']]},
+ {t:'הַפַּרְפַּר הַצִּבְעוֹנִי',x:'זַחַל קָטָן אָכַל עָלִים כָּל הַיּוֹם. אַחַר כָּךְ הוּא בָּנָה לוֹ גֹּלֶם וְנִרְדַּם. אַחֲרֵי הַרְבֵּה יָמִים הוּא יָצָא מֵהַגֹּלֶם. עַכְשָׁיו הוּא הָיָה פַּרְפַּר צִבְעוֹנִי!',
+  qs:[['מָה אָכַל הַזַּחַל?','עָלִים','פְּרָחִים','תַּפּוּחִים'],
+      ['מָה הַזַּחַל בָּנָה?','גֹּלֶם','קֵן','בַּיִת'],
+      ['מָה הוּא הָיָה בַּסּוֹף?','פַּרְפַּר','צִפּוֹר','דְּבוֹרָה']]},
+ {t:'הַכֶּלֶב שֶׁל סַבָּא',x:'לְסַבָּא יֵשׁ כֶּלֶב חוּם בְּשֵׁם בּוֹנִי. בּוֹנִי אוֹהֵב לָרוּץ אַחֲרֵי כַּדּוּרִים. הַיּוֹם שִׁירָן זָרְקָה כַּדּוּר גָּבוֹהַּ מְאוֹד, וְהוּא נָפַל לַבְּרֵכָה. בּוֹנִי קָפַץ לַמַּיִם וְהֵבִיא אוֹתוֹ!',
+  qs:[['שֶׁל מִי הַכֶּלֶב?','שֶׁל סַבָּא','שֶׁל אַבָּא','שֶׁל הַשָּׁכֵן'],
+      ['לְאָן נָפַל הַכַּדּוּר?','לַבְּרֵכָה','לַגַּג','לָעֵץ'],
+      ['מָה עָשָׂה בּוֹנִי?','קָפַץ לַמַּיִם','נָבַח חָזָק','הָלַךְ לִישֹׁן']]},
+ {t:'הַשַּׁרְבִיט הָאָבוּד',x:'הַקּוֹסֶמֶת לוּנָה אִבְּדָה אֶת הַשַּׁרְבִיט שֶׁלָּהּ. בְּלִי שַׁרְבִיט הִיא לֹא יָכְלָה לַעֲשׂוֹת קְסָמִים. יַנְשׁוּף חָכָם רָאָה אוֹתוֹ עַל עֵץ גָּבוֹהַּ. הוּא עָף, הֵבִיא אֶת הַשַּׁרְבִיט, וְלוּנָה הָיְתָה מְאֻשֶּׁרֶת.',
+  qs:[['מָה אִבְּדָה לוּנָה?','שַׁרְבִיט','כֶּתֶר','כּוֹבַע'],
+      ['מִי מָצָא אֶת הַשַּׁרְבִיט?','יַנְשׁוּף','חָתוּל','נְסִיכָה'],
+      ['אֵיפֹה הָיָה הַשַּׁרְבִיט?','עַל עֵץ גָּבוֹהַּ','בְּתוֹךְ הַבַּיִת','בַּיָּם']]}
+];
+var PRAISE=['כָּל הַכָּבוֹד!','יוֹפִי!','מְצֻיָּן!','נֶהְדָּר!','וָאוּ!','קְסוּם!','אַלּוּפָה!'];
+var MODES={
+  magic:{c:'purple',title:'מִלָּה מְכֻשֶּׁפֶת',n:10,glyph:'🪄',desc:'מוצאים את המילה עם הניקוד הנכון',sec:'nq'},
+  twins:{c:'pink',title:'תְּאוֹמֵי צְלִילִים',n:10,glyph:'מֵ=מֶ',desc:'איזו הברה נשמעת אותו דבר?',sec:'nq'},
+  flash:{c:'teal',title:'מִלָּה נֶעֱלֶמֶת',n:10,glyph:'👀',desc:'המילה מופיעה ונעלמת. זוכרים אותה?',sec:'fl'},
+  tower:{c:'orange',title:'מִגְדַּל קְרִיאָה',n:3,glyph:'🏰',desc:'קוראים משפט שגדל, ואז על זמן',sec:'fl'},
+  pics:{c:'blue',title:'מִשְׁפָּט וּתְמוּנָה',n:8,glyph:'🖼️',desc:'קוראים משפט ובוחרים תמונה',sec:'cm'},
+  story:{c:'green',title:'סִפּוּרֵי הַמַּמְלָכָה',n:3,glyph:'📖',desc:'קוראים סיפור קצר ועונים על שאלות',sec:'cm'}
+};
+
+/* ---------- helpers ---------- */
+function shuffle(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var x=a[i];a[i]=a[j];a[j]=x;}return a;}
+function pick(a){return a[Math.floor(Math.random()*a.length)];}
+function load(k,d){try{var v=localStorage.getItem('shiran-'+k);return v===null?d:JSON.parse(v);}catch(e){return d;}}
+function save(k,v){try{localStorage.setItem('shiran-'+k,JSON.stringify(v));}catch(e){}}
+
+var S={screen:'home',mode:null,q:0,round:[],cur:null,first:true,stars:0,lock:false,tok:0,
+  total:load('total',0),sound:load('sound',true),flash:load('flash',2500),
+  stats:load('stats',{}),best:load('best',{})};
+
+/* ---------- icons ---------- */
+var STAR='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="var(--star)" stroke="var(--star-edge)" stroke-width="1.2" stroke-linejoin="round"/></svg>';
+var STAR_EMPTY='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3l-5.9 3.3 1.3-6.6-4.9-4.6 6.6-.8z" fill="none" stroke="var(--line)" stroke-width="1.6" stroke-linejoin="round"/></svg>';
+var HOME='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11.5 12 4l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M10 20v-5h4v5"/></svg>';
+var SPK='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5z"/><path d="M16.5 9a4.5 4.5 0 0 1 0 6"/><path d="M19 6.5a8 8 0 0 1 0 11"/></svg>';
+var MUTE='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5v5h3.5L13 19V5L7.5 9.5z"/><path d="M16.5 9.5l5 5M21.5 9.5l-5 5"/></svg>';
+
+/* ---------- sound ---------- */
+var actx=null;
+function tone(seq){
+  if(!S.sound)return;
+  try{
+    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
+    var t0=actx.currentTime;
+    seq.forEach(function(n){
+      var o=actx.createOscillator(),g=actx.createGain();
+      o.type='triangle';o.frequency.value=n[0];
+      g.gain.setValueAtTime(0.0001,t0+n[1]);
+      g.gain.exponentialRampToValueAtTime(0.22,t0+n[1]+0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001,t0+n[1]+n[2]);
+      o.connect(g);g.connect(actx.destination);
+      o.start(t0+n[1]);o.stop(t0+n[1]+n[2]+0.05);
+    });
+  }catch(e){}
+}
+var GOOD=[[660,0,.14],[990,.11,.28]],BAD=[[260,0,.18],[200,.14,.24]],WIN=[[523,0,.16],[659,.14,.16],[784,.28,.16],[1046,.42,.45]];
+var heVoice=null,voicesKnown=false;
+function loadVoices(){
+  try{
+    var vs=window.speechSynthesis.getVoices();
+    if(vs&&vs.length){
+      var had=voicesKnown;voicesKnown=true;
+      heVoice=vs.filter(function(v){return /^(he|iw)/i.test(v.lang);})[0]||null;
+      if(S.screen==='home'&&!had)render();
+    }
+  }catch(e){}
+}
+if('speechSynthesis' in window){loadVoices();try{window.speechSynthesis.onvoiceschanged=loadVoices;}catch(e){}}
+function speak(text,rate){
+  if(!S.sound||!('speechSynthesis' in window))return;
+  try{
+    window.speechSynthesis.cancel();
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='he-IL';u.rate=rate||0.8;if(heVoice)u.voice=heVoice;
+    window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+function hush(){try{window.speechSynthesis&&window.speechSynthesis.cancel();}catch(e){}}
+
+/* ---------- game logic ---------- */
+function stat(firstTry){
+  var s=S.stats[S.mode]||[0,0];s[0]++;if(firstTry)s[1]++;S.stats[S.mode]=s;save('stats',S.stats);
+}
+function startMode(m){
+  S.mode=m;S.q=0;S.stars=0;S.tok++;
+  var n=MODES[m].n,r=[];
+  if(m==='story'){
+    var last=load('lastStory',-1),idx;
+    do{idx=Math.floor(Math.random()*STORIES.length);}while(STORIES.length>1&&idx===last);
+    save('lastStory',idx);
+    r=STORIES[idx].qs.map(function(q){return {st:STORIES[idx],q:q};});
+  }else{
+    var p=m==='tower'?TOWER.map(function(w,i){return {w:w,i:i};}):m==='pics'?SENT:m==='twins'?[0,1,2,3,4,5,6,7,8,9,10,11]:WORDS;
+    while(r.length<n){shuffle(p).forEach(function(x){if(r.length<n&&r[r.length-1]!==x)r.push(x);});}
+  }
+  S.round=r;makeQ();S.screen='game';render();afterRender();
+  try{if(location.hash!=='#play')location.hash='play';}catch(e){}
+}
+function makeQ(){
+  var m=S.mode,x=S.round[S.q],c;
+  if(m==='magic'){
+    c={w:x,ans:x.w,opts:shuffle([x.w].concat(x.bad))};
+  }else if(m==='flash'){
+    var other=pick(WORDS.filter(function(o){return o!==x;}));
+    c={w:x,ans:x.w,phase:'show',opts:shuffle([x.w,x.bad[0],x.bad[1],other.w])};
+  }else if(m==='twins'){
+    var l=pick(LET),fi=Math.floor(Math.random()*FAM.length),fam=FAM[fi],side=Math.random()<.5?0:1;
+    var others=shuffle(FAM.filter(function(f,i){return i!==fi;})).slice(0,3).map(function(f){return pick(f.f)(l);});
+    c={fam:fam,target:fam.f[side](l),ans:fam.f[1-side](l)};
+    c.opts=shuffle([c.ans].concat(others));
+  }else if(m==='pics'){
+    c={s:x[0],ans:x[1],opts:shuffle(x.slice(1))};
+  }else if(m==='story'){
+    c={st:x.st,q:x.q[0],ans:x.q[1],opts:shuffle(x.q.slice(1))};
+  }else if(m==='tower'){
+    c={w:x.w,i:x.i,line:1,phase:'build',t0:0,time:0,rec:false};
+  }
+  S.cur=c;S.first=true;S.lock=false;
+}
+function afterRender(){
+  if(S.screen!=='game')return;
+  if(S.mode==='flash'&&S.cur.phase==='show'){
+    var tok=++S.tok;
+    setTimeout(function(){
+      if(tok!==S.tok||S.screen!=='game'||S.mode!=='flash')return;
+      S.cur.phase='pick';render();
+    },S.flash);
+  }
+}
+function sayPrompt(){
+  var c=S.cur,m=S.mode;
+  if(m==='magic'||m==='flash')speak(c.w.w);
+  else if(m==='pics')speak(c.s);
+  else if(m==='story')speak(c.st.x,0.85);
+  else if(m==='tower'){speak(c.w.slice(0,Math.min(c.line,c.w.length)).join(' '));}
+}
+function answer(i,btn){
+  if(S.lock)return;
+  var c=S.cur,fb=document.getElementById('fb');
+  if(c.opts[i]===c.ans){
+    S.lock=true;btn.classList.add('ok');
+    if(S.first){S.stars++;S.total++;save('total',S.total);}
+    stat(S.first);
+    var pill=document.querySelector('.bar .pill b');if(pill)pill.textContent=S.stars;
+    tone(GOOD);fb.className='fb heb';fb.textContent=pick(PRAISE);
+    if(S.mode==='magic'||S.mode==='flash')speak(c.w.w);
+    else if(S.mode==='pics')speak(c.s);
+    setTimeout(next,S.mode==='story'?1400:1600);
+  }else{
+    S.first=false;btn.classList.add('no');btn.disabled=true;
+    tone(BAD);fb.className='fb heb try';
+    fb.textContent=S.mode==='story'?'נְנַסֶּה שׁוּב. אֶפְשָׁר לִקְרֹא שׁוּב אֶת הַסִּפּוּר':S.mode==='twins'?S.cur.fam.tip:'נְנַסֶּה שׁוּב';
+  }
+}
+function next(){
+  S.q++;
+  if(S.q>=S.round.length){S.tok++;S.screen='end';render();tone(WIN);return;}
+  makeQ();render();afterRender();window.scrollTo(0,0);
+}
+/* tower steps */
+function towerStep(){
+  var c=S.cur;
+  if(c.phase==='build'){
+    if(c.line<c.w.length){c.line++;tone([[880,0,.09]]);render();}
+    else{c.phase='ready';render();}
+  }else if(c.phase==='ready'){
+    c.phase='timing';c.t0=Date.now();render();tickTimer();
+  }else if(c.phase==='timing'){
+    c.time=(Date.now()-c.t0)/1000;c.phase='done';
+    var b=S.best[c.i];
+    if(c.time>=0.8&&(!b||c.time<b)){c.rec=!!b;S.best[c.i]=Math.round(c.time*10)/10;save('best',S.best);}
+    S.stars++;S.total++;save('total',S.total);stat(true);
+    tone(c.rec?WIN:GOOD);render();
+  }else{next();}
+}
+function tickTimer(){
+  var tok=++S.tok;
+  (function loop(){
+    if(tok!==S.tok||S.screen!=='game'||S.mode!=='tower'||S.cur.phase!=='timing')return;
+    var el=document.getElementById('timer');
+    if(el)el.textContent=((Date.now()-S.cur.t0)/1000).toFixed(1);
+    setTimeout(loop,100);
+  })();
+}
+
+/* ---------- exit confirm ---------- */
+function showConfirm(){
+  if(document.getElementById('exitModal'))return;
+  $app.insertAdjacentHTML('beforeend','<div class="modal" id="exitModal" role="dialog" aria-modal="true" aria-labelledby="exitTitle"><div class="sheet"><div class="face" aria-hidden="true">🤔</div><h2 class="heb" id="exitTitle">לָצֵאת מֵהַמִּשְׂחָק?</h2><p class="heb">הַסִּבּוּב יַתְחִיל מֵהַהַתְחָלָה</p><button class="btn go heb" data-act="stay">מַמְשִׁיכִים לְשַׂחֵק</button><button class="btn heb" data-act="leave">יוֹצְאִים</button></div></div>');
+}
+function hideConfirm(){var m=document.getElementById('exitModal');if(m)m.remove();}
+function leaveGame(){
+  hideConfirm();hush();S.tok++;go('home');
+  try{if(location.hash==='#play')history.back();}catch(e){}
+}
+window.addEventListener('hashchange',function(){
+  if(location.hash!=='#play'&&S.screen==='game'){showConfirm();try{location.hash='play';}catch(e){}}
+});
+
+/* ---------- screens ---------- */
+function tile(m){
+  var d=MODES[m];
+  return '<button class="tile t-'+d.c+'" data-act="mode" data-mode="'+m+'"><span class="glyph heb">'+d.glyph+'</span><span class="tt heb">'+d.title+'</span><span class="td">'+d.desc+'</span></button>';
+}
+function renderHome(){
+  var note='';
+  if(!('speechSynthesis' in window))note='המכשיר הזה לא יכול להקריא בקול. אפשר לשחק גם בלי, או לפתוח את הקישור בדפדפן Chrome או Safari.';
+  else if(voicesKnown&&!heVoice)note='אין במכשיר קול בעברית, ולכן כפתור הרמקול לא יקריא. ההוראות לתיקון נמצאות בכפתור "למבוגרים".';
+  return '<header class="hello"><div><h1 class="heb">שָׁלוֹם שִׁירָן! 👑</h1><p class="heb">בּוֹאִי לַמַּמְלָכָה הַקְּסוּמָה</p></div>'+
+    '<div class="pill" aria-label="'+S.total+' כוכבים">'+STAR+'<b>'+S.total+'</b></div></header>'+
+    '<p class="sec heb">✨ נִקּוּד</p><div class="tiles">'+tile('magic')+tile('twins')+'</div>'+
+    '<p class="sec heb">⚡ קְרִיאָה שׁוֹטֶפֶת</p><div class="tiles">'+tile('flash')+tile('tower')+'</div>'+
+    '<p class="sec heb">💡 הֲבָנַת הַנִּקְרָא</p><div class="tiles">'+tile('pics')+tile('story')+'</div>'+
+    (note?'<p class="note">'+note+'</p>':'')+
+    '<div class="foot"><button class="ghost" data-act="settings">למבוגרים: התקדמות והגדרות</button>'+
+    '<button class="round" data-act="sound" aria-pressed="'+S.sound+'" aria-label="'+(S.sound?'השתקה':'הפעלת צליל')+'">'+(S.sound?SPK:MUTE)+'</button></div>';
+}
+function optBtns(cls){
+  return S.cur.opts.map(function(o,i){return '<button class="opt '+cls+' heb" data-act="ans" data-i="'+i+'">'+o+'</button>';}).join('');
+}
+function renderGame(){
+  var c=S.cur,m=MODES[S.mode],prompt='',q='',opts='',cols='c1',tip='',say=true,extra='';
+  if(S.mode==='magic'){
+    prompt='<div class="pic" aria-hidden="true">'+c.w.pic+'</div>';
+    q='אֵיזוֹ מִלָּה כְּתוּבָה נָכוֹן?';opts=optBtns('wordbig');
+    tip='<p class="tip heb">🧙‍♀️ הַמְּכַשֵּׁפָה בִּלְבְּלָה אֶת הַנִּקּוּד. קִרְאִי כָּל מִלָּה לְאַט!</p>';
+  }else if(S.mode==='twins'){
+    prompt='<div class="big heb">'+c.target+'</div>';say=false;
+    q='אֵיזוֹ הֲבָרָה נִשְׁמַעַת בְּדִיּוּק אוֹתוֹ דָּבָר?';cols='c2';opts=optBtns('sylopt');
+    tip='<p class="tip heb">יֵשׁ נִקּוּד שׁוֹנֶה שֶׁנִּשְׁמָע אוֹתוֹ דָּבָר!</p>';
+  }else if(S.mode==='flash'){
+    if(c.phase==='show'){
+      prompt='<div class="flashword heb">'+c.w.w+'</div>';say=false;
+      q='מִסְתַּכְּלִים טוֹב...';opts='<div class="wait heb">👀</div>';
+    }else{
+      prompt='<div class="hidden-q" aria-hidden="true">?</div><button class="again heb" data-act="reshow">לְהַרְאוֹת שׁוּב</button>';say=false;
+      q='אֵיזוֹ מִלָּה רָאִית?';cols='c2';opts=optBtns('wordmid');
+    }
+  }else if(S.mode==='pics'){
+    prompt='<p class="sentence heb">'+c.s+'</p>';
+    q='אֵיזוֹ תְּמוּנָה מַתְאִימָה לַמִּשְׁפָּט?';cols='c3';
+    opts=c.opts.map(function(o,i){return '<button class="opt picopt" data-act="ans" data-i="'+i+'" aria-label="תמונה '+(i+1)+'"><span aria-hidden="true">'+o+'</span></button>';}).join('');
+  }else if(S.mode==='story'){
+    prompt='<h2 class="story-t heb">'+c.st.t+'</h2><p class="story heb">'+c.st.x+'</p>';
+    q='';extra='<p class="qn heb">שְׁאֵלָה '+(S.q+1)+' מִתּוֹךְ '+S.round.length+'</p><p class="sq heb t-green">'+c.q+'</p>';
+    opts=optBtns('txt');
+  }else if(S.mode==='tower'){
+    if(c.phase==='build'||c.phase==='ready'){
+      var lines='';
+      for(var i=1;i<=c.line;i++)lines+='<p class="tline heb'+(i===c.line?' now':'')+'">'+c.w.slice(0,i).join(' ')+'</p>';
+      prompt='<div class="tower">'+lines+'</div>';
+      if(c.phase==='build'){
+        q=c.line===1?'קִרְאִי בְּקוֹל אֶת הַשּׁוּרָה הַחֲדָשָׁה':'עוֹד מִלָּה! קִרְאִי שׁוּב אֶת כָּל הַשּׁוּרָה';
+        opts='<div class="row"><button class="btn go heb" data-act="tw">קָרָאתִי! ✓</button></div>';
+      }else{
+        q='עַכְשָׁו קִרְאִי אֶת כָּל הַמִּשְׁפָּט כְּמוֹ קוֹסֶמֶת, בְּלִי לַעֲצֹר!';
+        opts='<div class="row"><button class="btn primary heb" data-act="tw">⏱ מַתְחִילִים</button></div>';
+      }
+    }else if(c.phase==='timing'){
+      prompt='<p class="sentence heb">'+c.w.join(' ')+'</p><div class="timer" id="timer">0.0</div>';say=false;
+      q='';opts='<div class="row"><button class="btn go heb" data-act="tw">סִיַּמְתִּי!</button></div>';
+    }else{
+      var b=S.best[c.i];
+      prompt='<p class="sentence heb">'+c.w.join(' ')+'</p><div class="timer">'+c.time.toFixed(1)+'</div>';say=false;
+      q='';extra='<p class="big-msg heb'+(c.rec?' record':'')+'">'+(c.rec?'🏆 שִׂיא חָדָשׁ! 🏆':pick(PRAISE))+'</p>'+
+        (b&&!c.rec?'<p class="tip heb">הַשִּׂיא שֶׁלָּךְ בַּמִּשְׁפָּט הַזֶּה: '+b+' שְׁנִיּוֹת</p>':'');
+      opts='<div class="row"><button class="btn primary heb" data-act="tw">מַמְשִׁיכִים ←</button></div>';
+    }
+  }
+  var dots='';for(var d=0;d<S.round.length;d++)dots+='<span class="dot'+(d<S.q?' done':d===S.q?' now':'')+'"></span>';
+  return '<div class="bar t-'+m.c+'"><button class="round" data-act="home" aria-label="לדף הבית">'+HOME+'</button>'+
+    '<div class="dots" aria-label="שאלה '+(S.q+1)+' מתוך '+S.round.length+'">'+dots+'</div>'+
+    '<div class="pill" aria-label="כוכבים בסיבוב">'+STAR+'<b>'+S.stars+'</b></div></div>'+
+    '<section class="prompt t-'+m.c+'">'+prompt+(say?'<button class="round say" data-act="say" aria-label="להקשיב">'+SPK+'</button>':'')+'</section>'+
+    extra+(q?'<h2 class="q heb">'+q+'</h2>':'')+
+    '<div class="opts '+cols+'">'+opts+'</div>'+tip+
+    '<p class="fb heb" id="fb" aria-live="polite"></p>';
+}
+function renderEnd(){
+  var colors=['var(--purple)','var(--pink)','var(--orange)','var(--teal)','var(--star)'],conf='';
+  for(var i=0;i<40;i++)conf+='<span style="left:'+(Math.random()*100).toFixed(1)+'%;background:'+pick(colors)+';animation-duration:'+(2.2+Math.random()*1.6).toFixed(2)+'s;animation-delay:'+(Math.random()*.8).toFixed(2)+'s"></span>';
+  var n=S.round.length,st='';for(var j=0;j<n;j++)st+=j<S.stars?STAR:STAR_EMPTY;
+  return '<div class="confetti" aria-hidden="true">'+conf+'</div>'+
+    '<section class="end"><h1 class="heb">כָּל הַכָּבוֹד, שִׁירָן! 👑</h1>'+
+    '<div class="stars" aria-label="'+S.stars+' כוכבים מתוך '+n+'">'+st+'</div>'+
+    '<p class="score heb">'+S.stars+' כּוֹכָבִים מִתּוֹךְ '+n+'</p>'+
+    '<div class="row"><button class="btn primary heb" data-act="again">עוֹד פַּעַם</button><button class="btn heb" data-act="home">הַבַּיְתָה</button></div></section>';
+}
+function renderSettings(){
+  var rows=Object.keys(MODES).map(function(k){
+    var s=S.stats[k]||[0,0],pct=s[0]?Math.round(100*s[1]/s[0]):0;
+    var txt=k==='tower'?(s[0]+' משפטים'):(s[0]?pct+'% בניסיון ראשון · '+s[0]+' שאלות':'עוד לא שיחקה');
+    return '<tr><td>'+MODES[k].title.replace(/[֑-ׇ]/g,'')+(k!=='tower'&&s[0]?'<div class="meter"><i style="width:'+pct+'%"></i></div>':'')+'</td><td>'+txt+'</td></tr>';
+  }).join('');
+  var fs=[[1500,'מהיר'],[2500,'רגיל'],[4000,'איטי']].map(function(o){return '<button data-act="fspeed" data-v="'+o[0]+'" aria-pressed="'+(S.flash===o[0])+'">'+o[1]+'</button>';}).join('');
+  return '<div class="bar"><button class="round" data-act="home" aria-label="לדף הבית">'+HOME+'</button><h2 class="bt">למבוגרים</h2><span style="width:52px"></span></div>'+
+    '<section class="panel"><h3>ההתקדמות של שירן</h3><table class="prog">'+rows+'</table>'+
+    '<p>"בניסיון ראשון" = כמה פעמים ענתה נכון בלי לטעות קודם. מעל 80% ברוב המשחקים זה סימן טוב שאפשר להתקדם.</p></section>'+
+    '<section class="panel"><h3>מהירות "מילה נעלמת"</h3><p>כמה זמן המילה מוצגת לפני שהיא נעלמת. כדאי להתחיל ב"איטי" או "רגיל" ולעבור ל"מהיר" כשזה קל לה.</p><div class="seg">'+fs+'</div></section>'+
+    '<section class="panel"><h3>טיפים לעבודה איתה</h3>'+
+    '<p><b>מגדל קריאה</b> הוא תרגיל שטף מוכר: היא קוראת בקול את המשפט מילה אחרי מילה, ובסוף קוראת את כולו על זמן. השיא נשמר, והמטרה היא לשפר את עצמה ולא למהר.</p>'+
+    '<p><b>סיפורי הממלכה</b>: אפשר לבקש ממנה לקרוא את הסיפור בקול לפני השאלות. הסיפור נשאר על המסך, והיא מוזמנת לחפש בו את התשובה. זה בדיוק מה שמתרגלים בהבנת הנקרא.</p>'+
+    '<p>10 עד 15 דקות ביום עדיפות על שעה פעם בשבוע.</p></section>'+
+    '<section class="panel"><h3>אין קול בעברית? כך מסדרים</h3>'+
+    '<p><b>באייפד / אייפון:</b></p><ol class="steps"><li><b>הגדרות</b> ← <b>נגישות</b> ← <b>תוכן מוקרא</b> ← <b>קולות</b>.</li><li>בוחרים <b>עברית</b> ומורידים קול.</li><li>סוגרים את האפליקציה ופותחים מחדש.</li></ol>'+
+    '<p><b>באנדרואיד:</b></p><ol class="steps"><li><b>הגדרות</b> ← מחפשים <b>טקסט לדיבור</b>.</li><li>מנוע <b>Google</b> ← גלגל השיניים ← <b>התקנת נתוני קול</b> ← <b>עברית</b>.</li><li>פותחים את המשחק מחדש.</li></ol>'+
+    '<div class="row"><button class="small" data-act="test">בדיקת קול</button></div></section>'+
+    '<section class="panel"><h3>איפוס</h3><p>מחיקת הכוכבים, ההתקדמות והשיאים במכשיר הזה.</p><div class="row"><button class="small" data-act="reset">איפוס נתונים</button></div></section>';
+}
+var $app=document.getElementById('app');
+function render(){
+  $app.innerHTML={home:renderHome,game:renderGame,end:renderEnd,settings:renderSettings}[S.screen]();
+}
+function go(screen){S.screen=screen;render();window.scrollTo(0,0);}
+
+$app.addEventListener('click',function(e){
+  var b=e.target.closest('[data-act]');if(!b)return;
+  var a=b.dataset.act,modal=document.getElementById('exitModal');
+  if(modal&&a!=='stay'&&a!=='leave')return;
+  if(a==='mode'){startMode(b.dataset.mode);window.scrollTo(0,0);}
+  else if(a==='home'){
+    if(S.screen==='game')showConfirm();
+    else if(S.screen==='end')leaveGame();
+    else{hush();go('home');}
+  }
+  else if(a==='stay')hideConfirm();
+  else if(a==='leave')leaveGame();
+  else if(a==='ans')answer(+b.dataset.i,b);
+  else if(a==='tw')towerStep();
+  else if(a==='reshow'){S.cur.phase='show';render();afterRender();}
+  else if(a==='say')sayPrompt();
+  else if(a==='again'){startMode(S.mode);window.scrollTo(0,0);}
+  else if(a==='sound'){S.sound=!S.sound;save('sound',S.sound);render();if(S.sound)tone(GOOD);}
+  else if(a==='settings')go('settings');
+  else if(a==='fspeed'){S.flash=+b.dataset.v;save('flash',S.flash);render();}
+  else if(a==='test')speak('שָׁלוֹם שִׁירָן, בּוֹאִי נִקְרָא סִפּוּר');
+  else if(a==='reset'){
+    if(window.confirm('למחוק את כל ההתקדמות של שירן במכשיר הזה?')){
+      S.total=0;S.stats={};S.best={};save('total',0);save('stats',{});save('best',{});render();
+    }
+  }
+});
+render();
+})();
+</script>
+<script>
+if('serviceWorker' in navigator){window.addEventListener('load',function(){navigator.serviceWorker.register('sw.js').catch(function(){});});}
+</script>
+</body></html>
